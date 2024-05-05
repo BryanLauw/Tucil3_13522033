@@ -10,6 +10,10 @@ public class Node {
 
     // Methods
     // Constructors
+    /**
+     * Make a new Node
+     * @param word the word in the node
+     */
     public Node(String word) {
         this.word = word;
         this.parent = null;
@@ -18,7 +22,11 @@ public class Node {
         h = 0;
     }
 
-    // antara ini yang dihapus
+    /**
+     * Make a new Node
+     * @param word the word in the node
+     * @param parent the Node it generated from
+     */
     public Node(String word, Node parent) {
         this.word = word;
         this.parent = parent;
@@ -31,7 +39,12 @@ public class Node {
         h = 0;
     }
 
-    // atau ini
+    /**
+     * Make a new Node
+     * @param word the word in the node
+     * @param parent the Node it generated from
+     * @param g the greedy value
+     */
     public Node(String word, Node parent, int g) {
         this.word = word;
         this.parent = parent;
@@ -40,6 +53,10 @@ public class Node {
         h = 0;
     }
 
+    /**
+     * Make a new Node
+     * @param n a Node that will be copied
+     */
     public Node(Node n) {
         this.word = n.word;
         this.parent = n.parent;
@@ -49,14 +66,37 @@ public class Node {
     }
 
     // Getter
+    /**
+     * Getter for the word
+     * @return word in the nod
+     */
     public String getWord() { return word; }
+    /**
+     * Getter for parent Node
+     * @return reference to the parent
+     */
     public Node getParent() { return parent; }
+    /**
+     * Getter for depth
+     * @return the depth of the node
+     */
     public int getDepth() { return depth; }
+    /**
+     * Getter for g
+     * @return greedy value of the node
+     */
     public int getG() { return g; }
-    public int getH() { return h; }
+    /**
+     * Getter for total g and h
+     * @return the cost of the node
+     */
     public int getCost() { return g+h; }
 
-    // Setter heuristic
+    /**
+     * Finding the heuristic value of the word in this node
+     * The heuristic value is the amount of different alfabeth with other
+     * @param other destination string
+     */
     public void changeH(String other) {
         int temp = 0;
         for (int i = 0; i < other.length(); i++) {
@@ -67,7 +107,11 @@ public class Node {
         h = temp;
     } 
 
-    // Other function
+    /**
+     * Check if the word is already in its parent
+     * @param other the string that needs to be checked
+     * @return true if other exist in parent, false otherwise
+     */
     public boolean existInParent(String other) {
         Node comparator = new Node(this);
         while (comparator.getParent() != null) {
@@ -80,21 +124,5 @@ public class Node {
             return true;
         }
         return false;
-    }
-
-    //Janlup hapus
-    public String toString() {
-        String r = word + String.valueOf(g+h);
-        return r;
-    }
-
-    // Janlup hapus
-    public static void main(String[] args) {
-        Node n1 = new Node("A");
-        Node n2 = new Node("B", n1);
-        Node n3 = new Node("C", n2);
-        System.out.println(n3.existInParent("C"));
-        System.out.println(n1.word);
-        System.out.println(n2.getParent().word);
     }
 }

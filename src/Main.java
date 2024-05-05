@@ -4,18 +4,22 @@ import java.awt.event.*;
 
 public class Main {
     public static void main(String[] args) {
+        // Making dictionary
         Dictionary dict = new Dictionary();
 
+        // Main frame
         JFrame f = new JFrame("Word Ladder Solver");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(430, 470);
         f.setLayout(new FlowLayout());
 
+        // Title
         JPanel title = new JPanel();
         JLabel header = new JLabel("WORD LADDER SOLVER");
         title.add(header);
         title.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
 
+        // Input field (statring word and destination word)
         JPanel panel1 = new JPanel();
         panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         JLabel start = new JLabel("Starting word: ");
@@ -30,12 +34,13 @@ public class Main {
         panel2.add(end);
         panel2.add(input2);
 
+        // Button for running the program
         JPanel buttonPanel = new JPanel();
         JButton submitButton = new JButton("FIND");
         buttonPanel.add(submitButton);
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
-        // Create radio buttons
+        // Radio buttons
         JRadioButton radioButton1 = new JRadioButton("UCS");
         JRadioButton radioButton2 = new JRadioButton("G-BFS");
         JRadioButton radioButton3 = new JRadioButton("A*");
@@ -43,7 +48,7 @@ public class Main {
         // Initially set "UCS" radio button as selected
         radioButton1.setSelected(true);
 
-        // Create a button group
+        // Button group
         JLabel tekspilihan = new JLabel("CHOOSE ALGORITHM");
         JPanel teksSementara = new JPanel();
         teksSementara.add(tekspilihan);
@@ -58,7 +63,7 @@ public class Main {
         algoritma.add(radioButton2);
         algoritma.add(radioButton3);
         
-        // Create JLabels to display the selected options
+        // Output field
         JPanel resPanel = new JPanel();
         JLabel res = new JLabel();
         resPanel.add(res);
@@ -80,7 +85,7 @@ public class Main {
         memoryPanel.add(memoryLabel);
         memoryPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 
-        // Create a panel for the main content
+        // Main content
         JPanel contentPane = new JPanel();
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
         contentPane.add(title);
@@ -98,18 +103,20 @@ public class Main {
         contentPane.add(timePanel);
         contentPane.add(memoryPanel);
 
+        // Adding scroll pane
         JScrollPane scrollPane = new JScrollPane(contentPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        // Add action listener to the submit button
+        // Action listener to the submit button
         submitButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 Runtime r = Runtime.getRuntime();
                 Process pr;
+
                 // Get the values of input1 and input2
                 String startingWord = input1.getText().toUpperCase();
                 String destinationWord = input2.getText().toUpperCase();
 
+                // Check wether the words valid or not
                 if (startingWord.length() != destinationWord.length()) {
                     JOptionPane.showMessageDialog(f, "Input words must have the same length.");
                     return;
@@ -119,6 +126,7 @@ public class Main {
                     return;
                 }
 
+                // Starting process
                 long startTime = System.currentTimeMillis();
                 r.gc();
                 long beforeMem = r.totalMemory() - r.freeMemory();
@@ -132,17 +140,19 @@ public class Main {
                     pr = new Process(startingWord, destinationWord, true, true, dict);
                 }
 
+                // Making child nodes untill found a path or queue is empty
                 while (pr.getPath().isEmptyPath() && !(pr.getQueue().isEmptyQueue())) {
                     pr.generateChild();
                 }
                 
+                // Continue if the path found is not minimum
                 while (!pr.isMostMinimum() && !(pr.getQueue().isEmptyQueue())) {
                     pr.generateChild();
                 }
                 long afterMem = r.totalMemory() - r.freeMemory();
                 long stopTime = System.currentTimeMillis();
 
-                // Set the text of the JLabels to display the selected options
+                // Displaying Result
                 res.setText("RESULT");
                 if (pr.getPath().isEmptyPath()) {
                     resultLabel.setText("No path found");
@@ -159,7 +169,7 @@ public class Main {
             }
         });
 
-        contentPane.setBorder(null);
+        // Adding scroller
         scrollPane.setViewportView(contentPane);
         f.add(scrollPane);
         
