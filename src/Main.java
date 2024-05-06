@@ -165,7 +165,7 @@ public class Main {
                 }
                 nodeLabel.setText("Visited node(s): " + pr.getQueue().getGeneratedNode());
                 timeLabel.setText("Execution time: " + (stopTime-startTime) + " ms");
-                memoryLabel.setText("Memory used: " + ((afterMem - beforeMem)/1024) + " bytes");
+                memoryLabel.setText("Memory used: " + ((afterMem - beforeMem)/1024) + " kilobytes");
             }
         });
 
