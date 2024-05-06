@@ -3,7 +3,7 @@ import java.util.*;
 public class PrioQueueNode {
     // Attributes
     private List<Node> queueOfWords;
-    private Map<String, Integer> foundWord;
+    private Map<String, Integer> foundWord; /* key = word, value = depth found */
     private int generateAmount;
 
     //Methods    
@@ -14,6 +14,7 @@ public class PrioQueueNode {
     public PrioQueueNode(String begin) {
         queueOfWords = new ArrayList<Node>();
         foundWord = new HashMap<String, Integer>();
+        foundWord.put(begin, 0);
         Node n = new Node(begin, null);
         enqueue(n);
     }
@@ -42,7 +43,6 @@ public class PrioQueueNode {
         }
         queueOfWords.add(idx, n);
         foundWord.put(n.getWord(), n.getDepth());
-        generateAmount++;
     }
 
     /**
@@ -73,7 +73,7 @@ public class PrioQueueNode {
     }
 
     /**
-     * Check wether the word is already in the map with lower value
+     * Check whether the word is already in the map with lower value
      * @param s the word to be checked
      * @param depth the depth of the word
      * @return true if word doesn't exist in the map or exists with value <= depth
@@ -96,10 +96,11 @@ public class PrioQueueNode {
      * @param now current node
      * @param n the destination word
      * @param greedy true if greedy function is needed
-     * @param heuristic true if heuristic funtion is needed
+     * @param heuristic true if heuristic function is needed
      * @param d the dictionary
      */
     public void listChild(Node now, String n, boolean greedy, boolean heuristic, Dictionary d) {
+        generateAmount++;
         String x = now.getWord();
         int currentDepth = now.getDepth() + 1;
         int g = 0;
@@ -111,8 +112,7 @@ public class PrioQueueNode {
                 if (i != x.length()-1) {
                     temp = temp + x.substring(i+1);
                 }
-                //(d.isWordValid(temp)) && // Janlup hapus
-                if ((d.isWordValid(temp)) && !(now.existInParent(temp)) && !(isWordChecked(temp, currentDepth))) {
+                if ((d.isWordValid(temp)) && !(isWordChecked(temp, currentDepth))) {
                     Node tail = new Node(temp, now, g);
                     if (heuristic) { tail.changeH(n); }
                     enqueue(tail);

@@ -116,7 +116,7 @@ public class Main {
                 String startingWord = input1.getText().toUpperCase();
                 String destinationWord = input2.getText().toUpperCase();
 
-                // Check wether the words valid or not
+                // Check whether the words valid or not
                 if (startingWord.length() != destinationWord.length()) {
                     JOptionPane.showMessageDialog(f, "Input words must have the same length.");
                     return;
@@ -163,7 +163,7 @@ public class Main {
                     }
                     resultLabel.setText("<html>" + sb + "</html>");
                 }
-                nodeLabel.setText("Node generated: " + pr.getQueue().getGeneratedNode());
+                nodeLabel.setText("Visited node(s): " + pr.getQueue().getGeneratedNode());
                 timeLabel.setText("Execution time: " + (stopTime-startTime) + " ms");
                 memoryLabel.setText("Memory used: " + (afterMem - beforeMem) + " bytes");
             }

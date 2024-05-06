@@ -94,7 +94,7 @@ public class Node {
 
     /**
      * Finding the heuristic value of the word in this node
-     * The heuristic value is the amount of different alfabeth with other
+     * The heuristic value is the amount of different alphabeth with other
      * @param other destination string
      */
     public void changeH(String other) {
@@ -105,24 +105,5 @@ public class Node {
             }
         }
         h = temp;
-    } 
-
-    /**
-     * Check if the word is already in its parent
-     * @param other the string that needs to be checked
-     * @return true if other exist in parent, false otherwise
-     */
-    public boolean existInParent(String other) {
-        Node comparator = new Node(this);
-        while (comparator.getParent() != null) {
-            if (other.equals(comparator.getWord())) {
-                return true;
-            }
-            comparator = new Node(comparator.getParent());
-        }
-        if (other.equals(comparator.getWord())) {
-            return true;
-        }
-        return false;
     }
 }

@@ -41,11 +41,9 @@ public class Path {
      * @param n the first node (leaf node)
      */
     public void makePath(Node n) {
-        cost = n.getCost();
         Node temp = new Node(n);
         while (temp.getParent() != null) {
             result.add(temp.getWord());
-            // System.out.println(result); // Janlup hapus
             temp = new Node(temp.getParent());
         }
         result.add(temp.getWord());
