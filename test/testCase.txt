@@ -1,0 +1,23 @@
+1.
+Start word: bar
+Destination word: run
+
+2.
+Start word: baby
+Destination word: crib
+
+3.
+Start word: flight
+Destination word: create
+
+4.
+Start word: frown
+Destination word: smile
+
+5.
+Start word: flying
+Destination word: create
+
+6.
+Start word: better
+Destination word: better
